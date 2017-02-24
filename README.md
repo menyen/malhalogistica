@@ -15,13 +15,13 @@
  
 ## Algoritmo para resolução da malha
  
- O algoritmo escolhido foi Floy-Warshall. Esse algoritmo possui um tempo de execução O(V³), sendo V o número total de vértices no grafo. Porém esse tempo ocorre somente uam vez na construção da matriz de resposta.
- Diferente, por exemplo, de algoritmos como Dijkstra em que o tempo de execução é de  O(V log V + E log V) no pior caso para toda chamada de seu algoritmo, Floyd-Warshall consome O(1) para as chamadas consecutivas à primeira.
+ O algoritmo escolhido foi Floy-Warshall. Esse algoritmo possui um tempo de execução O(V³), sendo V o número total de vértices no grafo. Porém esse tempo ocorre somente uma vez na construção da matriz de resposta.
+ Diferente, por exemplo, de algoritmos como Dijkstra em que o tempo de execução é de  O(V log V + E log V) no pior caso para toda chamada de seu algoritmo, Floyd-Warshall consome O(1) para as chamadas consecutivas à primeira. Isso partindo do presuposto de que os mapas de distância não irão ser atualizados com muita frequência (afinal custa caro pro governo criar novas rotas).
  
-## Formatos de resposta do Webservice
+## Exemplos de dormatos na requisição e na resposta do Webservice
  
  * POST:
- * GET: 
+ * GET: _http://localhost:8080/malhalogistica/mapa/{nome_do_mapa}_
  
 ## Como compilar e subir o Webservice
  
