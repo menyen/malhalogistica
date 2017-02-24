@@ -39,6 +39,7 @@ public class Mapa {
 	
 	public void setMatrizInicialDeDistancia(Map<Set<String>, Integer> matrizDeDistancia) {
 		this.matrizInicialDeDistancia = matrizDeDistancia;
+		setSortedVerticesList();
 	}
 	
 	public void setSortedVerticesList(){

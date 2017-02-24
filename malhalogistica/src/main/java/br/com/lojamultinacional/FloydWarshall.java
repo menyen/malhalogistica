@@ -18,8 +18,10 @@ public class FloydWarshall {
 		for (double[] row : dist)
 			Arrays.fill(row, Double.POSITIVE_INFINITY);
 
-		for (int[] w : weights)
-			dist[w[0] - 1][w[1] - 1] = w[2];
+		for (int[] w : weights){
+			dist[w[0]][w[1]] = w[2];
+			dist[w[1]][w[0]] = w[2];
+		}
 
 		int[][] next = new int[numVertices][numVertices];
 		for (int i = 0; i < next.length; i++) {
