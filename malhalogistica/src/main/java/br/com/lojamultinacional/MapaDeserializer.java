@@ -35,7 +35,7 @@ public class MapaDeserializer extends StdDeserializer<Mapa> {
         mapa.setNome(nome);
         
         Map<Set<String>, Integer> edges = new HashMap<>();
-        Iterator<Entry<String, JsonNode>> matrizDeDistancia = node.get("matrizDeDistancia").getFields();
+        Iterator<Entry<String, JsonNode>> matrizDeDistancia = node.get("matrizInicialDeDistancia").getFields();
         while (matrizDeDistancia.hasNext()){
         	Entry<String, JsonNode> edge = matrizDeDistancia.next();
         	Set<String> vertices = new HashSet<String>(Arrays.asList(edge.getKey().replaceAll("\\[", "").replaceAll("\\]", "").split(", ")));

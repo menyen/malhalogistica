@@ -5,15 +5,13 @@ import java.util.Arrays;
 
 public class FloydWarshall {
 
-	public static void main(String[] args) {
-		int[][] weights = {{1, 3, -2}, {2, 1, 4}, {2, 3, 3}, {3, 4, 2}, {4, 2, -1}};
-		int numVertices = 4;
+	
+	//FloydWarshall.floydWarshall(getMatrizInicialAdjacencia(), this.listVerticesOrdenados.size());
 
-		floydWarshall(weights, numVertices);
-	}
+	static void floydWarshall(Mapa mapa) {
 
-	static void floydWarshall(int[][] weights, int numVertices) {
-
+		int[][] weights = mapa.getMatrizInicialAdjacencia();
+		int numVertices = mapa.getNumberOfVertices();
 		double[][] dist = new double[numVertices][numVertices];
 		for (double[] row : dist)
 			Arrays.fill(row, Double.POSITIVE_INFINITY);
@@ -39,8 +37,16 @@ public class FloydWarshall {
 					}
 
 		printResult(dist, next);
+		mapa.setMatrizAdjacenciaCompleta(dist);
+		mapa.setMatrizCaminho(next);
 	}
 
+	/**
+	 * Método de print para debugar código
+	 * 
+	 * @param dist
+	 * @param next
+	 */
 	static void printResult(double[][] dist, int[][] next) {
 		System.out.println("pair     dist    path");
 		for (int i = 0; i < next.length; i++) {
