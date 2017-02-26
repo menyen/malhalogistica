@@ -87,7 +87,6 @@ public class Mapa {
 	/**
 	 * @return Lista ordenada de vertices (cidades)
 	 */
-	@JsonIgnore
 	public List<String> getListaVerticesOrdenados(){
 		return this.listaVerticesOrdenados;
 	}
@@ -128,27 +127,44 @@ public class Mapa {
 		return edges;
 	}
 
-	@JsonIgnore 
 	public double[][] getMatrizAdjacenciaCompleta() {
 		return matrizAdjacenciaCompleta;
 	}
 	
-
+	public void setMatrizAdjacenciaCompleta(List<List<Double>> matrizAdjacenciaCompleta) {
+		this.matrizAdjacenciaCompleta = new double[matrizAdjacenciaCompleta.size()][matrizAdjacenciaCompleta.size()];
+		for (int i = 0; i < matrizAdjacenciaCompleta.size(); i++){
+			List<Double> rowAdjacenciaCompleta= matrizAdjacenciaCompleta.get(i);
+			for (int j = 0; j < matrizAdjacenciaCompleta.size(); j++){
+				this.matrizAdjacenciaCompleta[i][j] = rowAdjacenciaCompleta.get(j);
+			}
+		}
+		//this.matrizAdjacenciaCompleta = matrizAdjacenciaCompleta;
+	}
+	
 	public void setMatrizAdjacenciaCompleta(double[][] matrizAdjacenciaCompleta) {
 		this.matrizAdjacenciaCompleta = matrizAdjacenciaCompleta;
 	}
 
-	@JsonIgnore
 	public int[][] getMatrizCaminho() {
 		return matrizCaminho;
 	}
 
+	public void setMatrizCaminho(List<List<Integer>> matrizCaminho) {
+		this.matrizCaminho = new int[matrizCaminho.size()][matrizCaminho.size()];
+		for (int i = 0; i < matrizCaminho.size(); i++){
+			List<Integer> rowAdjacenciaCompleta = matrizCaminho.get(i);
+			for (int j = 0; j < matrizCaminho.size(); j++){
+				this.matrizCaminho[i][j] = rowAdjacenciaCompleta.get(j);
+			}
+		}
+	}
+	
 	public void setMatrizCaminho(int[][] matrizCaminho) {
 		this.matrizCaminho = matrizCaminho;
 	}
 	
 	public String getRotaECusto(String origem, String destino, Double autonomia, Double litro) throws JsonGenerationException, JsonMappingException, IOException{
-		FloydWarshall.floydWarshall(this);
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> resposta = new HashMap<String, Object>();
 		String rota = origem;
