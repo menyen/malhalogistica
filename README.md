@@ -19,9 +19,18 @@
  Diferente, por exemplo, de algoritmos como Dijkstra em que o tempo de execução é de  O(V log V + E log V) no pior caso para toda chamada de seu algoritmo, Floyd-Warshall consome O(1) para as chamadas consecutivas à primeira. Isso partindo do presuposto de que os mapas de distância não irão ser atualizados com muita frequência (afinal custa caro pro governo criar novas rotas).
  
 ## Exemplos de dormatos na requisição e na resposta do Webservice
+ É aconselhável utilizar ferramentas para fazer requisições como Postman para Chrome e Poster para Firefox
  
  * POST:
- * GET: _http://localhost:8080/malhalogistica/mapa/{nome_do_mapa}_
+  * Na URL de requisição coloque: http://localhost:8080/malhalogistica/webservice/mapa/
+  * Postman: escolha a aba *Body* -> escolha opção *raw* -> Mude *Text* para *JSON(aaplication/json)*
+  * Poster: digite *application/json* no campo *Content Type*
+  * Coloque um JSON que siga o seguinte formato: {"nome":"SP","matrizInicialDeDistancia":{"[A, B]":10,"[A, C]":20,"[B, D]":15,"[C, D]":30,"[B, E]":50,"[D, E]":30}}.
+  * Clique no botão SEND caso esteja usando Postman e no botão POST caso esteja usando Poster.
+ 
+ * GET: 
+  * para obter a matriz de adjacencia, siga o seguinte exemplo: http://localhost:8080/malhalogistica/webservice/mapa/{nome_do_mapa}
+  * para calcular rota e custo: http://localhost:8080/malhalogistica/webservice/mapa/?cidade=SP&origem=A&destino=B&litro=6.25&autonomia=10
  
 ## Como compilar e subir o Webservice
  
