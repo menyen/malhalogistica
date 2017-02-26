@@ -21,15 +21,16 @@
 ## Exemplos de dormatos na requisição e na resposta do Webservice
  É aconselhável utilizar ferramentas para fazer requisições como Postman para Chrome e Poster para Firefox
  
- * POST: 
-  * Na URL de requisição coloque: http://localhost:8080/malhalogistica/webservice/mapa/
-  * Postman: escolha a aba *Body* -> escolha opção *raw* -> Mude *Text* para *JSON(aaplication/json)* 
-  * Poster: digite *application/json* no campo *Content Type*
-  * Coloque um JSON que siga o seguinte formato: {"nome":"SP","matrizInicialDeDistancia":{"[A, B]":10,"[A, C]":20,"[B, D]":15,"[C, D]":30,"[B, E]":50,"[D, E]":30}}
-  * Clique no botão SEND caso esteja usando Postman e no botão POST caso esteja usando Poster
+ * POST:
+  * Na URL de requisição coloque: http://localhost:8080/malhalogistica/webservice/mapa/
+  * Postman: escolha a aba *Body* -> escolha opção *raw* -> Mude *Text* para *JSON(aaplication/json)*
+  * Poster: digite *application/json* no campo *Content Type*
+  * Coloque um JSON que siga o seguinte formato: {"nome":"SP","matrizInicialDeDistancia":{"[A, B]":10,"[A, C]":20,"[B, D]":15,"[C, D]":30,"[B, E]":50,"[D, E]":30}}.
+  * Clique no botão SEND caso esteja usando Postman e no botão POST caso esteja usando Poster.
  
  * GET: 
-  * para obter a matriz de adjacencia: http://localhost:8080/malhalogistica/webservice/mapa/{nome_do_mapa}
+  * para obter a matriz de adjacencia, siga o seguinte exemplo: http://localhost:8080/malhalogistica/webservice/mapa/{nome_do_mapa}
+  * para calcular rota e custo: http://localhost:8080/malhalogistica/webservice/mapa/?cidade=SP&origem=A&destino=B&litro=6.25&autonomia=10
  
 ## Como compilar e subir o Webservice
  
