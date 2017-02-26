@@ -42,12 +42,8 @@ public class RESTfulMalhaLogistica {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response criarMapaEmJSON(Mapa mapa) {
 
-		/*mapa.setMatrizAdjacenciaCompleta(
-				FloydWarshall.floydWarshall(mapa.getMatrizInicialAdjacencia(), mapa.getNumberOfVertices()));*/
 		String mapaURI = "http://localhost:8080/malhalogistica/webservice/mapa/"+mapa.getNome();
 		return Response.status(201).entity(mapaURI).build();
-		//mapa.setMatrizCompletaFormatada();
-		//return mapa;
 
 	}
 	

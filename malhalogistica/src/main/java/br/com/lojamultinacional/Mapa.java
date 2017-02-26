@@ -60,14 +60,14 @@ public class Mapa {
 	 */
 	public void setMatrizInicialDeDistancia(Map<Set<String>, Integer> matrizDeDistancia) {
 		this.matrizInicialDeDistancia = matrizDeDistancia;
-		setListaVerticesOrdenados();
+		createListaVerticesOrdenados();
 	}
 	
 	/**
 	 * Cria uma lista com os nomes das cidades encontradas no mapa inicial de distâncias
 	 * e os ordena. 
 	 */
-	public void setListaVerticesOrdenados(){
+	public void createListaVerticesOrdenados(){
 		Set<String> vertices = new HashSet<String>();
 		for (Set<String> edge : matrizInicialDeDistancia.keySet()) {
 			Iterator<String> verticesIterator = edge.iterator();
@@ -78,6 +78,10 @@ public class Mapa {
 		List<String> sortedVertices = new ArrayList<String>(vertices);
 		Collections.sort(sortedVertices);
 		this.listaVerticesOrdenados = sortedVertices;
+	}
+	
+	public void setListaVerticesOrdenados(List<String> listaVerticesOrdenados){
+		this.listaVerticesOrdenados = listaVerticesOrdenados;
 	}
 	
 	/**
