@@ -25,7 +25,7 @@ import com.mongodb.DBObject;
  
 @Path("/webservice")
 
-public class RESTfulMalhaLogistica {
+public class RestMalhaLogistica {
 	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/mapa/{nome_mapa}")
