@@ -3,6 +3,12 @@ package br.com.lojamultinacional;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 
+/**
+ * Classe que cria uma instância única para acesso ao banco de dados
+ * 
+ * @author ng
+ *
+ */
 public class MongoDBSingleton {
 
 	private static MongoDBSingleton mDbSingleton;

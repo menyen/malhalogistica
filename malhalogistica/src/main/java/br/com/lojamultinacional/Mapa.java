@@ -19,14 +19,20 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
-@XmlRootElement(name = "Books")
+/**
+ * Classe utilizada para salvar dados de matriz de adjacência e matriz de custo
+ * 
+ * @author ng
+ *
+ */
+@XmlRootElement(name = "mapas")
 @JsonDeserialize(using = MapaDeserializer.class)
 public class Mapa {
 
     private String nome;
     private Map<Set<String>, Integer> matrizInicialDeDistancia;
     private List<String> listaVerticesOrdenados;
-    private double[][] matrizAdjacenciaCompleta;
+    private double[][] matrizCustoCompleta;
     private int[][] matrizCaminho;
     
 	/**
@@ -64,6 +70,62 @@ public class Mapa {
 	}
 	
 	/**
+	 * Cria uma lista com apenas os nomes das cidades ordenados por ordem alfabética
+	 * 
+	 * @param listaVerticesOrdenados
+	 */
+	public void setListaVerticesOrdenados(List<String> listaVerticesOrdenados){
+		this.listaVerticesOrdenados = listaVerticesOrdenados;
+	}
+	
+	/**
+	 * @return Lista ordenada de vertices (cidades)
+	 */
+	public List<String> getListaVerticesOrdenados(){
+		return this.listaVerticesOrdenados;
+	}
+	
+	/**
+	 * @return quantidade de vértices existentes no mapa
+	 */
+	@JsonIgnore
+	public int getNumberOfVertices(){
+		return this.listaVerticesOrdenados.size();
+	}
+	
+	/**
+	 * Set para a matriz de custo totalmente preenchida em formato de matriz quadrada
+	 * 
+	 * @param matrizCustoCompleta
+	 */
+	public void setMatrizCustoCompleta(double[][] matrizCustoCompleta) {
+		this.matrizCustoCompleta = matrizCustoCompleta;
+	}
+	
+	/**
+	 * @return Matriz de custo totalmente preenchida
+	 */
+	public double[][] getMatrizCustoCompleta() {
+		return matrizCustoCompleta;
+	}
+
+	/**
+	 * @return Matriz com rota de menor caminho de um ponto a outro
+	 */
+	public int[][] getMatrizCaminho() {
+		return matrizCaminho;
+	}
+	
+	/**
+	 * Salva a matriz de caminho mais curto
+	 * 
+	 * @param matrizCaminho
+	 */
+	public void setMatrizCaminho(int[][] matrizCaminho) {
+		this.matrizCaminho = matrizCaminho;
+	}
+	
+	/**
 	 * Cria uma lista com os nomes das cidades encontradas no mapa inicial de distâncias
 	 * e os ordena. 
 	 */
@@ -80,34 +142,14 @@ public class Mapa {
 		this.listaVerticesOrdenados = sortedVertices;
 	}
 	
-	public void setListaVerticesOrdenados(List<String> listaVerticesOrdenados){
-		this.listaVerticesOrdenados = listaVerticesOrdenados;
-	}
-	
-	/**
-	 * @return Lista ordenada de vertices (cidades)
-	 */
-	public List<String> getListaVerticesOrdenados(){
-		return this.listaVerticesOrdenados;
-	}
-	
-	
-	/**
-	 * @return quantidade de vértices existentes no mapa
-	 */
-	@JsonIgnore
-	public int getNumberOfVertices(){
-		return this.listaVerticesOrdenados.size();
-	}
-	
 	/**
 	 * Método converte a matriz recebida na variável "matrizInicialDeDistancia" 
 	 * e substitui os nomes das cidades por indices da variável "listVerticesOrdenados"
 	 * 
-	 * @return matriz inicial de adjacência
+	 * @return matriz inicial de custo
 	 */
 	@JsonIgnore
-	public int[][] getMatrizInicialAdjacencia(){
+	public int[][] getMatrizInicialCusto(){
 		int numberOfEdges = matrizInicialDeDistancia.keySet().size();
 		int i = 0;
 		int[][] edges = new int[numberOfEdges][3];
@@ -126,58 +168,69 @@ public class Mapa {
 		}
 		return edges;
 	}
-
-	public double[][] getMatrizAdjacenciaCompleta() {
-		return matrizAdjacenciaCompleta;
-	}
 	
-	public void setMatrizAdjacenciaCompleta(List<List<Double>> matrizAdjacenciaCompleta) {
-		this.matrizAdjacenciaCompleta = new double[matrizAdjacenciaCompleta.size()][matrizAdjacenciaCompleta.size()];
-		for (int i = 0; i < matrizAdjacenciaCompleta.size(); i++){
-			List<Double> rowAdjacenciaCompleta= matrizAdjacenciaCompleta.get(i);
-			for (int j = 0; j < matrizAdjacenciaCompleta.size(); j++){
-				this.matrizAdjacenciaCompleta[i][j] = rowAdjacenciaCompleta.get(j);
+	/**
+	 * Converte a matriz de adjacência retornada do banco de dados em formato 
+	 * <List<List<Double>> e converte em matriz de tipo primitivo
+	 * 
+	 * @param matrizCustoCompleta
+	 */
+	public void setMatrizCustoCompleta(List<List<Double>> matrizCustoCompleta) {
+		this.matrizCustoCompleta = new double[matrizCustoCompleta.size()][matrizCustoCompleta.size()];
+		for (int i = 0; i < matrizCustoCompleta.size(); i++){
+			List<Double> rowCustoCompleta= matrizCustoCompleta.get(i);
+			for (int j = 0; j < matrizCustoCompleta.size(); j++){
+				this.matrizCustoCompleta[i][j] = rowCustoCompleta.get(j);
 			}
 		}
-		//this.matrizAdjacenciaCompleta = matrizAdjacenciaCompleta;
 	}
 	
-	public void setMatrizAdjacenciaCompleta(double[][] matrizAdjacenciaCompleta) {
-		this.matrizAdjacenciaCompleta = matrizAdjacenciaCompleta;
-	}
-
-	public int[][] getMatrizCaminho() {
-		return matrizCaminho;
-	}
-
+	/**
+	 * Converte a matriz de caminho mais curto de List<List<Integer>> para tipo primitivo de matriz
+	 * 
+	 * @param matrizCaminho
+	 */
 	public void setMatrizCaminho(List<List<Integer>> matrizCaminho) {
 		this.matrizCaminho = new int[matrizCaminho.size()][matrizCaminho.size()];
 		for (int i = 0; i < matrizCaminho.size(); i++){
-			List<Integer> rowAdjacenciaCompleta = matrizCaminho.get(i);
+			List<Integer> rowCustoCompleta = matrizCaminho.get(i);
 			for (int j = 0; j < matrizCaminho.size(); j++){
-				this.matrizCaminho[i][j] = rowAdjacenciaCompleta.get(j);
+				this.matrizCaminho[i][j] = rowCustoCompleta.get(j);
 			}
 		}
 	}
 	
-	public void setMatrizCaminho(int[][] matrizCaminho) {
-		this.matrizCaminho = matrizCaminho;
-	}
-	
+	/**
+	 * Recupera matriz de adjacência e custo do banco de dados, calcula o menor caminho e seu custo
+	 * 
+	 * @param origem
+	 * @param destino
+	 * @param autonomia
+	 * @param litro
+	 * @return JSON vonvertido em String contendo rota e custo do caminho mais curto de um ponto a outro do mapa
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
 	public String getRotaECusto(String origem, String destino, Double autonomia, Double litro) throws JsonGenerationException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> resposta = new HashMap<String, Object>();
-		String rota = origem;
 		int i = listaVerticesOrdenados.indexOf(origem);
 		int j = listaVerticesOrdenados.indexOf(destino);
-		Double custo = (matrizAdjacenciaCompleta[i][j]/autonomia)*litro;
-		resposta.put("custo", custo);
-		do {
-			i = this.matrizCaminho[i][j];
-			rota += "  " + listaVerticesOrdenados.get(i);
-		} while (i != j );
-		
-		resposta.put("rota", rota);
+		if(matrizCustoCompleta[i][j] == Double.POSITIVE_INFINITY){
+			resposta.put("rota", "Não há rota válida.");
+			resposta.put("custo", "Custo não calculado.");
+		} else{
+			String rota = origem;
+			Double custo = (matrizCustoCompleta[i][j]/autonomia)*litro;
+			resposta.put("custo", custo);
+			do {
+				i = this.matrizCaminho[i][j];
+				rota += "  " + listaVerticesOrdenados.get(i);
+			} while (i != j );
+			
+			resposta.put("rota", rota);
+		}
 		return mapper.writeValueAsString(resposta);
 	}
 

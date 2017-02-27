@@ -15,6 +15,12 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.deser.StdDeserializer;
 
+/**
+ * Classe utilizada para deserializar classe Mapa quando a mesma vem como parâmetro de requisição do tipo POST
+ * 
+ * @author ng
+ *
+ */
 public class MapaDeserializer extends StdDeserializer<Mapa> {
 
 	public MapaDeserializer() { 

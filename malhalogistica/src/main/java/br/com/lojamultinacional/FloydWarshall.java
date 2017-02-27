@@ -6,11 +6,15 @@ import java.util.Arrays;
 public class FloydWarshall {
 
 	
-	//FloydWarshall.floydWarshall(getMatrizInicialAdjacencia(), this.listVerticesOrdenados.size());
-
+	/**
+	 * Calcula matriz de custo e matriz de adjacencia em O(n³).
+	 * Porém, só ocorre na chamada para salvar as matrizes no banco de dados.
+	 * 
+	 * @param mapa
+	 */
 	static void floydWarshall(Mapa mapa) {
 
-		int[][] weights = mapa.getMatrizInicialAdjacencia();
+		int[][] weights = mapa.getMatrizInicialCusto();
 		int numVertices = mapa.getNumberOfVertices();
 		double[][] dist = new double[numVertices][numVertices];
 		for (double[] row : dist)
@@ -20,6 +24,9 @@ public class FloydWarshall {
 			dist[w[0]][w[1]] = w[2];
 			dist[w[1]][w[0]] = w[2];
 		}
+		
+		for (int i = 0; i < numVertices; i++)
+			dist[i][i] = 0;
 
 		int[][] next = new int[numVertices][numVertices];
 		for (int i = 0; i < next.length; i++) {
@@ -36,8 +43,8 @@ public class FloydWarshall {
 						next[i][j] = next[i][k];
 					}
 
-		printResult(dist, next);
-		mapa.setMatrizAdjacenciaCompleta(dist);
+		//printResult(dist, next);
+		mapa.setMatrizCustoCompleta(dist);
 		mapa.setMatrizCaminho(next);
 	}
 
