@@ -21,16 +21,17 @@
 ## Exemplos de dormatos na requisição e na resposta do Webservice
  É aconselhável utilizar ferramentas para fazer requisições como Postman para Chrome e Poster para Firefox
  
- * POST:
+ * POST: Cria OU atualiza um mapa caso ele já exista
   * Na URL de requisição coloque: http://localhost:8080/malhalogistica/webservice/mapa/
   * Postman: escolha a aba *Body* -> escolha opção *raw* -> Mude *Text* para *JSON(aaplication/json)*
   * Poster: digite *application/json* no campo *Content Type*
   * Coloque um JSON que siga o seguinte formato: {"nome":"SP","matrizInicialDeDistancia":{"[A, B]":10,"[A, C]":20,"[B, D]":15,"[C, D]":30,"[B, E]":50,"[D, E]":30}}.
   * Clique no botão SEND caso esteja usando Postman e no botão POST caso esteja usando Poster.
+  * O retorno dessa chamada é uma URI para a matriz de adjacência de a matriz de distância do mapa.
  
- * GET: 
-  * para obter a matriz de adjacencia, siga o seguinte exemplo: http://localhost:8080/malhalogistica/webservice/mapa/{nome_do_mapa}
-  * para calcular rota e custo: http://localhost:8080/malhalogistica/webservice/mapa/?cidade=SP&origem=A&destino=B&litro=6.25&autonomia=10
+ * GET: Retorna um mapa com nome, matriz de adjacência e matriz de distância OU retorna rota e custo
+  * para obter a matriz de custo e de adjacência, siga o seguinte exemplo: http://localhost:8080/malhalogistica/webservice/mapa/SP
+  * para calcular rota e custo: http://localhost:8080/malhalogistica/webservice/mapa/?cidade=SP&origem=A&destino=B&litro=2,5&autonomia=10
  
 ## Como compilar e subir o Webservice
  
